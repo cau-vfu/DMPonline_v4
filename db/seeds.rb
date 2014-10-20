@@ -122,3 +122,17 @@ Question.create!([
   {text: "What resources will you require to implement your plan? Will extra people, time or hardware, storage be required? How much will this cost (estimation)?", question_type: nil, default_value: "", guidance: "<p>More information about estimating cost for data management is available through the <a href=\"http://data-archive.ac.uk/create-manage/planning-for-sharing/costing\" target=\"_blank\">UK Data Archive</a>. This information should be incorporated into any grant applications for your project.</p>", number: 4, parent_id: nil, dependency_id: nil, dependency_text: "", section_id: 6, multiple_choice: false, multiple_permitted: false, is_expanded: true, is_text_field: false, question_format_id: 1 }
 ])
 
+
+formatting = {
+  'MICYRN' => {
+    font_face: "Arial, Helvetica, Sans-Serif",
+    font_size: 11,
+    margin: { top: 20, bottom: 20, left: 20, right: 20 }
+  }
+}
+
+formatting.each do |org, settings|
+  template = Dmptemplate.find_by_title("#{org} Template")
+  template.settings(:export).formatting = settings
+  template.save!
+end

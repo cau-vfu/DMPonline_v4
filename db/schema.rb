@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140429114226) do
+ActiveRecord::Schema.define(:version => 20140707143840) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(:version => 20140429114226) do
     t.string   "principal_investigator"
     t.string   "principal_investigator_identifier"
     t.string   "data_contact"
+    t.string   "funder_name"
   end
 
   add_index "projects", ["slug"], :name => "index_projects_on_slug", :unique => true
@@ -322,6 +323,17 @@ ActiveRecord::Schema.define(:version => 20140429114226) do
     t.datetime "updated_at",      :null => false
     t.boolean  "published"
   end
+
+  create_table "settings", :force => true do |t|
+    t.string   "var",         :null => false
+    t.text     "value"
+    t.integer  "target_id",   :null => false
+    t.string   "target_type", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "settings", ["target_type", "target_id", "var"], :name => "index_settings_on_target_type_and_target_id_and_var", :unique => true
 
   create_table "splash_logs", :force => true do |t|
     t.string   "destination"
